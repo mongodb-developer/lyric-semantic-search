@@ -1,0 +1,9 @@
+/Users/tim.kelly/Documents/JavaProjects/lyric-semantic-search/src/main/java/com/mongodb/lyric_semantic_search/LyricSemanticSearchApplication.java
+/Users/tim.kelly/Documents/JavaProjects/lyric-semantic-search/src/main/java/com/mongodb/lyric_semantic_search/config/Config.java
+/Users/tim.kelly/Documents/JavaProjects/lyric-semantic-search/src/main/java/com/mongodb/lyric_semantic_search/controller/LyricSearchController.java
+/Users/tim.kelly/Documents/JavaProjects/lyric-semantic-search/src/main/java/com/mongodb/lyric_semantic_search/model/DocumentRequest.java
+/Users/tim.kelly/Documents/JavaProjects/lyric-semantic-search/src/main/java/com/mongodb/lyric_semantic_search/model/Song.java
+/Users/tim.kelly/Documents/JavaProjects/lyric-semantic-search/src/main/java/com/mongodb/lyric_semantic_search/repository/LyricSearchRepository.java
+/Users/tim.kelly/Documents/JavaProjects/lyric-semantic-search/src/main/java/com/mongodb/lyric_semantic_search/repository/LyricSearchRepositoryImpl.java
+/Users/tim.kelly/Documents/JavaProjects/lyric-semantic-search/src/main/java/com/mongodb/lyric_semantic_search/service/LyricSearchService.java
+/Users/tim.kelly/Documents/JavaProjects/lyric-semantic-search/src/main/java/com/mongodb/lyric_semantic_search/transformer/SongToDocumentTransformer.java
