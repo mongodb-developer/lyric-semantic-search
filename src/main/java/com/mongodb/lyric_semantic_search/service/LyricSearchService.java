@@ -1,7 +1,5 @@
 package com.mongodb.lyric_semantic_search.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,12 +11,8 @@ import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.lyric_semantic_search.model.DocumentRequest;
-import com.mongodb.lyric_semantic_search.model.Song;
 import com.mongodb.lyric_semantic_search.repository.LyricSearchRepository;
-import com.mongodb.lyric_semantic_search.transformer.SongToDocumentTransformer;
 
 /**
  * Service class for handling lyric search operations.
@@ -102,28 +96,6 @@ public class LyricSearchService {
         return results.stream()
             .map(doc -> Map.of("content", doc.getContent(), "metadata", doc.getMetadata()))
             .collect(Collectors.toList());
-    }
-
-    /**
-     * Imports songs from a JSON file.
-     *
-     * @param jsonFilePath The path to the JSON file containing songs
-     */
-    public void importSongs(String jsonFilePath) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            List<Song> songs = objectMapper.readValue(new File(jsonFilePath), new TypeReference<List<Song>>() {
-            });
-
-            List<DocumentRequest> documentRequests = songs.stream()
-                .map(SongToDocumentTransformer::transform)
-                .filter(doc -> doc != null)
-                .collect(Collectors.toList());
-
-            addDocuments(documentRequests);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

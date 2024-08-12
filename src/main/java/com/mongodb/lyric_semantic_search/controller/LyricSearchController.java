@@ -44,12 +44,6 @@ public class LyricSearchController {
         return "Documents added";
     }
 
-    @PostMapping("/addSampleData")
-    public String addSampleData() {
-        lyricSearchService.importSongs("archive/all_songs_data.json");
-        return "Sample data added";
-    }
-
     @DeleteMapping("/delete")
     public String deleteDocuments(List<String> ids) {
         lyricSearchService.deleteDocuments(ids);
