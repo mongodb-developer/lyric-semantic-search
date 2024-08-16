@@ -1,6 +1,7 @@
 package com.mongodb.lyric_semantic_search.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
@@ -24,8 +25,8 @@ public class LyricSearchRepositoryImpl implements LyricSearchRepository {
     }
 
     @Override
-    public void deleteDocuments(List<String> ids) {
-        vectorStore.delete(ids);
+    public Optional<Boolean> deleteDocuments(List<String> ids) {
+        return vectorStore.delete(ids);
     }
 
     @Override

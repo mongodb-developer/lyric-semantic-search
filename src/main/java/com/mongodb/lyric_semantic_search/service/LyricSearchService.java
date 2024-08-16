@@ -1,7 +1,9 @@
 package com.mongodb.lyric_semantic_search.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.ai.document.Document;
@@ -26,13 +28,14 @@ public class LyricSearchService {
     private LyricSearchRepository lyricSearchRepository;
 
     /**
-     * Adds documents to the repository after filtering out null or overly long documents.
+     * Adds validated documents to the repository after filtering out null or excessively long documents.
      *
-     * @param documents List of document requests to add
+     * @param documents List of document requests to be added
+     * @return List of documents that were successfully added
      */
-    public void addDocuments(List<DocumentRequest> documents) {
+    public List<Document> addDocuments(List<DocumentRequest> documents) {
         if (documents == null || documents.isEmpty()) {
-            return; // Nothing to add
+            return Collections.emptyList();
         }
 
         List<Document> docs = documents.stream()
@@ -50,15 +53,36 @@ public class LyricSearchService {
         if (!docs.isEmpty()) {
             lyricSearchRepository.addDocuments(docs);
         }
+
+        return docs;
     }
 
     /**
-     * Searches documents based on the query, topK, and similarity threshold.
+     * Deletes documents from the repository based on the provided document IDs.
+     *
+     * @param ids List of document IDs to be deleted
+     * @return List of successfully deleted document IDs, or an empty list if deletion was unsuccessful
+     */
+    public List<String> deleteDocuments(List<String> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyList(); // Nothing to delete
+        }
+
+        Optional<Boolean> result = lyricSearchRepository.deleteDocuments(ids);
+        if (result.isPresent() && result.get()) {
+            return ids; // Return the list of successfully deleted IDs
+        } else {
+            return Collections.emptyList(); // Return empty list if deletion was unsuccessful
+        }
+    }
+
+    /**
+     * Performs a semantic search on documents based on the given query, with specified top results and similarity threshold.
      *
      * @param query The search query
      * @param topK The number of top results to return
-     * @param similarityThreshold The similarity threshold
-     * @return List of search results
+     * @param similarityThreshold The minimum similarity score for results to be included
+     * @return List of search results containing document content and metadata
      */
     public List<Map<String, Object>> searchDocuments(String query, int topK, double similarityThreshold) {
         SearchRequest searchRequest = SearchRequest.query(query)
@@ -73,13 +97,13 @@ public class LyricSearchService {
     }
 
     /**
-     * Searches documents with metadata filtering based on the artist.
+     * Searches documents using a metadata filter, such as filtering by artist, alongside the given query.
      *
      * @param query The search query
      * @param topK The number of top results to return
-     * @param similarityThreshold The similarity threshold
-     * @param artist The artist to filter by
-     * @return List of search results
+     * @param similarityThreshold The minimum similarity score for results to be included
+     * @param artist The artist to filter results by
+     * @return List of filtered search results containing document content and metadata
      */
     public List<Map<String, Object>> searchDocumentsWithFilter(String query, int topK, double similarityThreshold, String artist) {
         FilterExpressionBuilder filterBuilder = new FilterExpressionBuilder();
@@ -96,19 +120,6 @@ public class LyricSearchService {
         return results.stream()
             .map(doc -> Map.of("content", doc.getContent(), "metadata", doc.getMetadata()))
             .collect(Collectors.toList());
-    }
-
-    /**
-     * Deletes documents by their IDs.
-     *
-     * @param ids List of document IDs to delete
-     */
-    public void deleteDocuments(List<String> ids) {
-        if (ids == null || ids.isEmpty()) {
-            return; // Nothing to delete
-        }
-
-        lyricSearchRepository.deleteDocuments(ids);
     }
 
     /**
