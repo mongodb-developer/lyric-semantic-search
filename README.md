@@ -42,9 +42,30 @@ Use the following CURL command to add sample documents:
 curl -X POST "http://localhost:8080/addDocuments" \
      -H "Content-Type: application/json" \
      -d '[
-           {"title": "Twinkle Twinkle Little Star", "artist": "Jane Taylor", "year": "1806", "lyrics": "Twinkle, twinkle, little star, How I wonder what you are! Up above the world so high, Like a diamond in the sky."},
-           {"title": "Itsy Bitsy Spider", "artist": "Traditional", "year": "1910", "lyrics": "The itsy bitsy spider climbed up the waterspout. Down came the rain and washed the spider out. Out came the sun and dried up all the rain and the itsy bitsy spider climbed up the spout again."},
-           {"title": "Humpty Dumpty", "artist": "Mother Goose", "year": "1797", "lyrics": "Humpty Dumpty sat on a wall, Humpty Dumpty had a great fall. All the kings horses and all the kings men couldnt put Humpty together again."}
+            {
+               "content": "Twinkle, twinkle, little star, How I wonder what you are! Up above the world so high, Like a diamond in the sky.",
+               "metadata": {
+                  "title": "Twinkle Twinkle Little Star",
+                  "artist": "Jane Taylor",
+                  "year": "1806"
+               }
+            },
+            {
+               "content": "The itsy bitsy spider climbed up the waterspout. Down came the rain and washed the spider out. Out came the sun and dried up all the rain and the itsy bitsy spider climbed up the spout again.",
+               "metadata": {
+                  "title": "Itsy Bitsy Spider",
+                  "artist": "Traditional",
+                  "year": "1910"
+               }
+            },
+            {
+               "content": "Humpty Dumpty sat on a wall, Humpty Dumpty had a great fall. All the kings horses and all the kings men couldnt put Humpty together again.",
+               "metadata": {
+                  "title": "Humpty Dumpty",
+                  "artist": "Mother Goose",
+                  "year": "1797"
+               }
+            }
          ]'
 ```
 
