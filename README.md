@@ -39,7 +39,7 @@ To test our embedding, let's keep it simple with a few nursery rhymes for now.
 Use the following CURL command to add sample documents:
 
 ```bash
-curl -X POST "http://localhost:8080/addSampleData" \
+curl -X POST "http://localhost:8080/addDocuments" \
      -H "Content-Type: application/json" \
      -d '[
            {"title": "Twinkle Twinkle Little Star", "artist": "Jane Taylor", "year": "1806", "lyrics": "Twinkle, twinkle, little star, How I wonder what you are! Up above the world so high, Like a diamond in the sky."},
