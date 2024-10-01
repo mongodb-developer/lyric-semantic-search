@@ -1,4 +1,5 @@
 # lyric-semantic-search
+This repo is support the [Building a Semantic Search Service With Spring AI and MongoDB Atlas](https://www.mongodb.com/developer/languages/java/spring-ai-mongodb-atlas/) tutorial.
 
 Spring AI is an application framework from [Spring](https://spring.io/) that allows you to combine various AI services and plugins with your applications. With support for many chat, text-to-image, and embedding models, you can get your AI powered Java application set up for a variety of AI use cases.
 
